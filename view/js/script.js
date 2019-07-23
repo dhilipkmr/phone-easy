@@ -68,9 +68,8 @@ PhoneDirectory.prototype.reRendertable = function(sortedList) {
   this.$tBody.innerHTML = '';
   this.$tBody.append($heading);
   if (sortedList.length === 0) {
-    this.$noResult.classList.remove('dn');
+    return null;
   } else {
-    this.$noResult.classList.add('dn');
     sortedList.forEach((val) => {
       this.$tBody.append(this.getCard(val));
     });
@@ -112,7 +111,6 @@ PhoneDirectory.prototype.init = function() {
   this.$addContactBtn = document.getElementById('submit');
   this.$tBody = document.querySelector('#summaryTable tbody');
   this.$tName = document.querySelector('#nameColumn');
-  this.$noResult = document.querySelector('#noResult');
   this.initiateEventListeners();
 }
 

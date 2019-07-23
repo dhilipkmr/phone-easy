@@ -104,6 +104,15 @@ describe('Phone Directory app \n', function() {
     expect(displayError).to.be.true;
 
     name.sendKeys('John doe');
+    mobile.sendKeys('9898989898');
+    email.sendKeys('abc zyx@xyz.com');
+    await submit.click();
+    hasNoItemAdded = await driver.executeScript("return document.querySelectorAll('#summaryTable tbody').length === 1");
+    displayError = await driver.executeScript("return getComputedStyle(document.getElementsByClassName('error')[0]).display !== 'none'");
+    expect(hasNoItemAdded).to.be.true;
+    expect(displayError).to.be.true;
+
+    name.sendKeys('John doe');
     mobile.sendKeys('8989898989');
     email.sendKeys('adminadminadminadminadminadmin87767868765856567fhfhjadminadminadmin@xyzcompany.com');
     await submit.click();
@@ -205,22 +214,4 @@ describe('Phone Directory app \n', function() {
     const hasBg = await driver.executeScript("return  getComputedStyle(document.querySelectorAll('#summaryTable tbody')[0].children[1]).background.includes('rgb(242, 242, 242)') && getComputedStyle(document.querySelectorAll('#summaryTable tbody')[0].children[3]).background.includes('rgb(242, 242, 242)')");
     expect(hasBg).to.be.true;
   });
-
-  it('should show No Results found <div>, if no Mobile numbers gets filtered in search', async function() {
-    name.sendKeys('John Doe');
-    mobile.sendKeys('9876543210');
-    email.sendKeys('admin3@xyzcompany.com');
-    await submit.click();
-
-    const tbody = "document.querySelectorAll('#summaryTable tbody')[0]";
-    search.sendKeys('0000000000');
-    let correctRows = await driver.executeScript(`return document.querySelectorAll('#summaryTable tbody')[0].childElementCount === 1`);
-    expect(correctRows).to.be.true;
-    driver.takeScreenshot().then(
-      function(image, err) {
-        require('fs').writeFile('noResult.png', image, 'base64', function(err) {});
-      }
-    );
-  });
-
 });
