@@ -4,6 +4,12 @@ function PhoneDirectory() {
   this.sortType = 1;
 }
 
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+
 PhoneDirectory.prototype.isvalid = function (name, mobile, email) {
   if (!name || !email || !mobile) {
    return false;
@@ -12,7 +18,7 @@ PhoneDirectory.prototype.isvalid = function (name, mobile, email) {
   const mobileRegex = new RegExp('^[0-9]*$');
   const validName = nameRegex.test(name) && name.length <= 20;
   const validMobile = mobileRegex.test(mobile) && mobile.length === 10;
-  const validEmail = email.endsWith('@xyzcompany.com') && email.length <= 40;
+  const validEmail = validateEmail(email) && email.length <= 40;
   return validName && validMobile && validEmail;
 }
 
@@ -62,8 +68,9 @@ PhoneDirectory.prototype.reRendertable = function(sortedList) {
   this.$tBody.innerHTML = '';
   this.$tBody.append($heading);
   if (sortedList.length === 0) {
-    return null;
+    this.$noResult.classList.remove('dn');
   } else {
+    this.$noResult.classList.add('dn');
     sortedList.forEach((val) => {
       this.$tBody.append(this.getCard(val));
     });
@@ -105,6 +112,7 @@ PhoneDirectory.prototype.init = function() {
   this.$addContactBtn = document.getElementById('submit');
   this.$tBody = document.querySelector('#summaryTable tbody');
   this.$tName = document.querySelector('#nameColumn');
+  this.$noResult = document.querySelector('#noResult');
   this.initiateEventListeners();
 }
 
