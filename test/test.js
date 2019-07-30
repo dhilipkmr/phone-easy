@@ -168,9 +168,9 @@ describe('Phone Directory app \n', function() {
 
     // Ascending
     await nameColumn.click();
-    let name1 = "document.querySelectorAll('#summaryTable tbody')[0].children[1].children[0].innerText.toLowerCase()";
-    let name2 = "document.querySelectorAll('#summaryTable tbody')[0].children[2].children[0].innerText.toLowerCase()";
-    let name3 = "document.querySelectorAll('#summaryTable tbody')[0].children[3].children[0].innerText.toLowerCase()";
+    let name1 = "document.querySelectorAll('#summaryTable tbody')[0].children[0].children[0].innerText.toLowerCase()";
+    let name2 = "document.querySelectorAll('#summaryTable tbody')[0].children[1].children[0].innerText.toLowerCase()";
+    let name3 = "document.querySelectorAll('#summaryTable tbody')[0].children[2].children[0].innerText.toLowerCase()";
     let sorted = await driver.executeScript(`return (${name1} < ${name2}) && (${name1} < ${name3}) && (${name2} < ${name3})`);
     expect(sorted).to.be.true;
     driver.takeScreenshot().then(

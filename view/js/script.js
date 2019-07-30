@@ -64,9 +64,7 @@ PhoneDirectory.prototype.sort = function() {
 }
 
 PhoneDirectory.prototype.reRendertable = function(sortedList) {
-  const $heading = this.$tBody.children[0];
   this.$tBody.innerHTML = '';
-  this.$tBody.append($heading);
   if (sortedList.length === 0) {
     return null;
   } else {
